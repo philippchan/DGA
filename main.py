@@ -18,7 +18,7 @@ from plot_utils import DGAPlotter
 
 # ML imports
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, PowerTransformer
+from sklearn.preprocessing import StandardScaler, FunctionTransformer
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
@@ -129,6 +129,7 @@ for name, dataset in datasets.items():
 # Define common preprocessing pipeline
 def create_preprocessing_pipeline(use_feature_selection=False):
     steps = [
+        ('log_transform', FunctionTransformer(np.log1p)),  # log(1+x) to handle zeros
         ('scaler', StandardScaler()),
     ]
     
